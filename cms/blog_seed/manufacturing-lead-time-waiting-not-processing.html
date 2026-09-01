@@ -1,0 +1,221 @@
+<p class="lead" id="short-answer">In most high-mix, low-volume plants, the large majority of manufacturing lead time is waiting time, not processing time. The gap is not slow machines. It is queue time — the hours and days a job spends sitting in front of a resource, waiting for a batch to finish, waiting for a move, waiting for a decision.</p>
+
+    <p>This matters because most improvement budgets are aimed at the wrong number. If touch time is 5% of your lead time, cutting touch time in half improves lead time by 2.5%. Cutting the waiting is where the leverage lives. Trooba Flow, our Factory Flow Intelligence software, exists because that waiting is predictable. It follows the mathematics of queueing systems, and it can be modelled before you change anything on the floor.</p>
+
+    <h2>The short answer: your parts spend most of their life in a queue</h2>
+    <p>Two terms, defined plainly, before anything else.</p>
+    <p><strong>Touch time</strong> (also called processing time or value-added time) is the time a job is actually being worked on. Metal being cut. Solder being applied. A stone being set. If you stood next to the part with a stopwatch and only ran it when something was happening to the part, that is touch time.</p>
+    <p><strong>Queue time</strong> is everything else inside the plant. The job is on a rack, on a pallet, in a tote, in a WIP rack, or in a tray on a bench, and nothing is happening to it. It is waiting for a machine that is busy with another job, waiting for the rest of its batch, waiting for the forklift, waiting for a quality sign-off, waiting for the planner to release it.</p>
+    <p><strong>Manufacturing lead time</strong> is the calendar time from when the order enters the shop to when it leaves as a finished, shippable product. It is the sum of touch time, queue time, and transport time.</p>
+    <p>In a job shop or a make-to-order plant, touch time is usually a single-digit percentage of the total. Not because anyone is lazy, but because that is what queueing systems do when you load them with variable work.</p>
+
+    <h2 id="worked-example">An illustrative worked example</h2>
+    <p class="blog-note">The numbers below are illustrative, not a measured customer result.</p>
+    <p>A shop takes an order for 40 machined brackets. The routing is saw, mill, deburr, outside heat treat, inspect.</p>
+
+    <table class="tbl blog-table">
+      <tr><th>Operation</th><th>Touch time per piece</th><th>Touch time for 40 pieces</th></tr>
+      <tr><td>Saw</td><td>1.5 min</td><td>60 min</td></tr>
+      <tr><td>Mill</td><td>12 min</td><td>480 min</td></tr>
+      <tr><td>Deburr</td><td>4 min</td><td>160 min</td></tr>
+      <tr><td>Inspect</td><td>2.5 min</td><td>100 min</td></tr>
+      <tr><td class="blog-hi">Total in-house</td><td class="blog-hi">20 min</td><td class="blog-hi">800 min (13.3 hours)</td></tr>
+    </table>
+
+    <p>Thirteen and a bit hours of real work. On a single-shift, eight-hour day, that is under two working days of actual processing. The order shipped in 18 working days.</p>
+
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Bracket order · 18 working days elapsed · illustrative model</p>
+      <div class="blog-split">
+        <div class="blog-split__touch" style="width:9%;">9%</div>
+        <div class="blog-split__wait" style="width:91%;">91% waiting</div>
+      </div>
+      <div class="blog-legend">
+        <span><span class="swatch" style="background:var(--action-primary);"></span>Touch time — 13.3 hrs</span>
+        <span><span class="swatch" style="background:var(--chart-neutral-3);"></span>Queue, batch, move &amp; decision waits</span>
+      </div>
+    </div>
+
+    <p>So roughly 9% of the elapsed time was touch time. The other 91% was the part sitting still. Three of those days were at the heat treat supplier, and most of that was queue too — just someone else's queue. This ratio is not unusual. It is the normal condition of a plant that runs a wide product mix through shared resources.</p>
+
+    <h2 id="hiding">Where the waiting actually hides</h2>
+    <p>If you go looking for the missing 91%, you find it in five places. They are not equally sized, and the mix differs by plant, which is why measuring beats guessing.</p>
+
+    <div class="blog-icons blog-icons--5">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Queue at a resource</h5><p>A job arrives at the mill, the mill is busy, the job waits. Grows non-linearly with loading.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Waiting for the batch</h5><p>Piece one waits for pieces two through one hundred. Large batches convert processing time into waiting time.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Waiting to move</h5><p>A finished pallet can sit for hours before someone takes it thirty metres.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Waiting on a decision</h5><p>Missing drawings, an unsigned approval. Rarely appears in any system report.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Rework &amp; expediting</h5><p>The plant doesn't save time — it redistributes it, adding variability for everyone.</p></div>
+    </div>
+
+    <h2 id="machines">Why faster machines barely move the needle</h2>
+    <p>Here is the arithmetic that surprises people. Take the bracket example. Suppose you buy a machining centre that cuts the mill operation from 12 minutes to 6 minutes per piece. Real improvement, real money.</p>
+    <p>Total in-house touch time drops from 800 minutes to 560 minutes — that is 4 hours saved, half a working day, against an 18-day lead time. Best case, you go from 18 days to 17.5 days, a 3% improvement, and only if nothing else in the queue structure changes.</p>
+    <p>In practice it can be worse than that. A faster machine at one operation feeds the next operation faster, and if the next operation is the constrained one, you have simply moved WIP downstream and grown the queue there.</p>
+    <div class="blog-callout">This is the mistake most plants make. Capital goes toward reducing the 9%, while the 91% is treated as an unavoidable fact of life. It is not — it is a consequence of how the system is loaded, batched, and sequenced.</div>
+
+    <h2 id="forces">The two forces that create queues: utilisation and variability</h2>
+    <p><strong>Utilisation</strong> is the fraction of available time a resource is actually busy. A machine running 7.2 hours out of an 8-hour shift is at 90% utilisation.</p>
+    <p><strong>Variability</strong> is the unevenness in the system. Jobs do not arrive at even intervals. Setups differ. Some orders are 5 pieces, some are 500. Machines break. Operators are absent. Two kinds matter: variability in arrivals, and variability in processing times.</p>
+    <p>Queueing theory gives us the relationship between these and waiting. Kingman's formula, also called the VUT equation, expresses average queue time at a workstation as the product of three factors: a variability term, a utilisation term, and the average processing time. The utilisation term is ρ / (1 − ρ), where ρ is utilisation.</p>
+    <p>That fraction is the part every plant manager should internalise. Watch what it does:</p>
+
+    <table class="tbl blog-table">
+      <tr><th>Utilisation</th><th>ρ / (1 − ρ)</th><th>Relative queue time</th></tr>
+      <tr><td>70%</td><td>2.33</td><td>baseline</td></tr>
+      <tr><td>80%</td><td>4.00</td><td>~1.7× the 70% case</td></tr>
+      <tr data-risk="true"><td>90%</td><td>9.00</td><td>~3.9× the 70% case</td></tr>
+      <tr data-risk="true"><td>95%</td><td>19.00</td><td>~8.2× the 70% case</td></tr>
+    </table>
+
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">The ρ / (1 − ρ) term, by utilisation</p>
+      <svg viewBox="0 0 460 170" width="100%" role="img" aria-label="Bar chart showing the utilisation factor rising from 2.33 at 70 percent to 19 at 95 percent utilisation">
+        <line x1="20" y1="140" x2="440" y2="140" stroke="var(--border-subtle)"></line>
+        <rect x="40"  y="123" width="70" height="17" fill="var(--chart-neutral-1)"></rect>
+        <rect x="160" y="106" width="70" height="34" fill="var(--chart-primary)"></rect>
+        <rect x="280" y="65"  width="70" height="75" fill="var(--action-primary)"></rect>
+        <rect x="400" y="20"  width="0"  height="0" fill="none"></rect>
+        <rect x="370" y="12"  width="70" height="128" fill="var(--action-primary-hover)"></rect>
+        <text x="75"  y="158" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">70%</text>
+        <text x="195" y="158" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">80%</text>
+        <text x="315" y="158" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">90%</text>
+        <text x="405" y="158" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">95%</text>
+        <text x="75"  y="118" text-anchor="middle" font-size="12" fill="var(--text-primary)" font-weight="700">2.33</text>
+        <text x="195" y="101" text-anchor="middle" font-size="12" fill="var(--text-primary)" font-weight="700">4.00</text>
+        <text x="315" y="60"  text-anchor="middle" font-size="12" fill="var(--text-inverse)" font-weight="700">9.00</text>
+        <text x="405" y="32"  text-anchor="middle" font-size="12" fill="var(--text-inverse)" font-weight="700">19.00</text>
+      </svg>
+    </div>
+
+    <p>Same machine. Same operators. Same work content. Only the loading changed. Queue time does not rise gradually as you push utilisation up — it rises sharply, and it accelerates. The last few points of utilisation, the ones that look like free capacity on a report, are the most expensive points in the plant. This is why a shop that "finally got the mill to 95%" often finds that lead times got longer and expediting got worse in the same quarter.</p>
+    <p>The variability term matters just as much. Halve the variability in arrivals and processing, and you roughly halve the queue at that station, at the same utilisation. That is why setup reduction, standardised routings, and stable release rules pay off in lead time far beyond the minutes they directly save.</p>
+
+    <h2 id="littles-law">Little's Law: the check you can run this afternoon</h2>
+    <p>Little's Law is the simplest useful relationship in operations:</p>
+    <div class="blog-callout" style="text-align:center; font-size:17px;"><strong>WIP = Throughput × Lead Time</strong></div>
+    <p>Where WIP (work in process) is the number of jobs currently inside the system, throughput is the rate at which jobs leave, and lead time is the average time a job spends inside. Rearranged:</p>
+    <div class="blog-callout" style="text-align:center; font-size:17px;"><strong>Lead Time = WIP ÷ Throughput</strong></div>
+    <p>This is not a model or an approximation. It holds for any stable system, whatever the distributions.</p>
+    <p>Illustrative example. A finishing cell completes 20 jobs per day. Walk the floor and count what is physically in the cell: 200 jobs, on racks, in trays, in the queue at each bench.</p>
+    <p>Lead time = 200 ÷ 20 = <strong>10 days</strong>.</p>
+    <p>Now suppose you release less work and hold WIP at 100 jobs, while the cell still completes 20 jobs per day. Lead time = 100 ÷ 20 = <strong>5 days</strong>.</p>
+    <p>Nothing about the machines changed. The cell did not get faster. There was simply less work in front of each job.</p>
+    <p>The catch, and it is a real one: you cannot cut WIP arbitrarily and assume throughput holds. Drop WIP too far and resources starve, throughput falls, and lead time stops improving. Somewhere between "flooded" and "starved" is a WIP level that protects throughput while keeping queues short. Finding it by trial and error on a live floor is expensive. Finding it in a model is not.</p>
+
+    <h2 id="measure">Measure the waiting before you attack it</h2>
+    <p>Quick Response Manufacturing uses <a href="/blog/manufacturing-critical-path-time-mct">Manufacturing Critical-Path Time (MCT)</a> for this: the typical calendar time from when a customer order is created, along the longest critical path, until the first piece of that order is delivered. Calendar time, not working time. It counts the weekends, the overnight sits, the days a job spends in a rack while nobody logs anything.</p>
+    <p>MCT is deliberately unforgiving. It does not let you exclude the parts of the process where nothing happens, which is exactly where the lead time is.</p>
+    <p>A practical way to get your first honest number:</p>
+    <ol>
+      <li>Pick one representative product family. Not the easiest one, not the worst.</li>
+      <li>Take three to five recent real orders in that family. Record the date the order entered and the date the first good piece shipped. Count calendar days.</li>
+      <li>Sum the standard touch time for those orders from your routings, including setup, and convert it to calendar days at your actual staffing.</li>
+      <li>Divide touch time by total elapsed time. That is your touch time ratio.</li>
+      <li>Then walk the physical path of one job and write down every point where it sat still, and for roughly how long.</li>
+    </ol>
+    <p>Most plants doing this for the first time land somewhere between 1% and 10% on step four, and are genuinely surprised by step five. The surprise is usually not the machine queues — it is the batch waiting and the decision waiting.</p>
+
+    <h2 id="levers">What actually reduces the waiting</h2>
+    <p>Once you know the waiting is the target, the lever set changes completely.</p>
+
+    <table class="tbl blog-table">
+      <tr><th>Lever</th><th>What it actually changes</th><th>Effect on queue time</th><th>Capital required</th></tr>
+      <tr><td>Faster machine</td><td>Touch time only</td><td>Small, unless it also lowers utilisation at the constraint</td><td>High</td></tr>
+      <tr><td>Extra shift / added capacity</td><td>Lowers utilisation ρ</td><td>Can be large, because of the ρ/(1−ρ) effect</td><td>Medium–high</td></tr>
+      <tr><td>Smaller transfer lots</td><td>Overlaps operations, cuts batch waiting</td><td>Often large, fast to see</td><td>Near zero</td></tr>
+      <tr><td>Setup reduction</td><td>Lowers variability, makes small lots economic</td><td>Large, compounding</td><td>Low–medium</td></tr>
+      <tr><td>Capped WIP / controlled release</td><td>Directly sets lead time via Little's Law</td><td>Predictable and immediate</td><td>Near zero</td></tr>
+      <tr><td>Cellular reorganisation</td><td>Cuts moves, handovers, shared-resource contention</td><td>Large, but disruptive</td><td>Medium</td></tr>
+    </table>
+
+    <p>The transfer lot lever deserves a worked example, because it is the cheapest and the most consistently ignored.</p>
+    <p>An order of 100 pieces runs through two operations. Operation 1 takes 2 minutes per piece. Operation 2 takes 3 minutes per piece.</p>
+
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Moving the whole batch vs. moving in transfer lots of 20</p>
+      <div class="blog-ops" style="grid-template-columns:1fr 1fr;">
+        <div class="blog-op">
+          <div class="name">Whole batch</div>
+          <div class="val">Op 1: 200 min, then Op 2: 300 min</div>
+          <div class="val" style="margin-top:6px; color:var(--text-primary); font-weight:700;">Total: 500 min</div>
+        </div>
+        <div class="blog-op" style="border-color:var(--border-subtle); background:var(--state-selected);">
+          <div class="name">Transfer lots of 20</div>
+          <div class="val">Op 2 starts at min 40, runs continuously</div>
+          <div class="val" style="margin-top:6px; color:var(--text-accent); font-weight:700;">Total: 340 min</div>
+        </div>
+      </div>
+    </div>
+
+    <p>A 32% reduction. No new equipment, no extra labour, no process change. The only thing that changed was when material moves.</p>
+
+    <h2 id="tarinika">A measured example of the same principle</h2>
+    <div class="blog-result">
+      <div class="txt">
+        <p class="small">MEASURED RESULT — TARINIKA</p>
+        <p class="main">Tarinika, a jewellery manufacturer, reduced manufacturing lead time using the same factory and the same machines. The constraint was lot sizing and queue dynamics, not machine speed.</p>
+      </div>
+      <div class="num">28 → 7<small>days · &gt;75% reduction</small></div>
+    </div>
+    <p>The point is not the size of the number. Outcomes vary by system, product mix, and how much waiting was in the process to begin with. The point is where the reduction came from. No new equipment was involved. The improvement came from changing how work was batched and how it flowed between operations.</p>
+
+    <h2 id="modelling">Modelling the change before you make it</h2>
+    <p>Here is the uncomfortable part. Every lever in that table interacts with every other one. Cutting transfer lots increases the number of setups and moves, which raises utilisation at some resources. Adding a shift changes ρ at one station and moves the constraint to another. Reducing WIP shortens lead time until it starves a resource and throughput drops.</p>
+    <p>You cannot reason through these interactions reliably in a spreadsheet, and you should not learn them by experimenting on live customer orders.</p>
+    <p>This is the problem Trooba Flow was built for. It models the plant as an open queueing network of products, routings, resources, demand, and variability, and predicts bottlenecks, queue time, WIP, utilisation, and manufacturing lead time. You can run a what-if scenario — a shift change, a routing change, a smaller transfer lot — and compare projected outcomes before anything moves on the floor.</p>
+    <p>Those projections are modelled figures, not measured ones. We keep the distinction sharp, and so should you when you present numbers internally. A model tells you which changes are worth trying and roughly how much they should be worth. The floor tells you what you actually got.</p>
+
+    <div class="blog-midcta">
+      <p>See where the waiting sits in your own plant, and what the credible levers are.</p>
+      <a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a>
+    </div>
+
+    <h2>In short</h2>
+    <p>Lead time in a high-mix plant is mostly a queueing outcome, not a processing outcome. Parts sit far longer than they are worked on, and the sitting is caused by high utilisation, high variability, and large batches, in roughly that order of leverage.</p>
+
+    <div class="blog-steps">
+      <div class="blog-step"><div class="num">01</div><h5>Measure honestly</h5><p>Get your real touch time ratio from recent orders, not an estimate.</p></div>
+      <div class="blog-step"><div class="num">02</div><h5>Check Little's Law</h5><p>See what your current WIP level is already committing you to.</p></div>
+      <div class="blog-step"><div class="num">03</div><h5>Look at transfer lots</h5><p>The cheapest, most consistently ignored lever.</p></div>
+      <div class="blog-step"><div class="num">04</div><h5>Find decision delays</h5><p>Look for waits nobody logs — approvals, sign-offs, missing info.</p></div>
+      <div class="blog-step"><div class="num">05</div><h5>Treat 95% as expensive</h5><p>The last points of utilisation cost the most in queue time.</p></div>
+      <div class="blog-step"><div class="num">06</div><h5>Model before you move</h5><p>Test changes in a queueing model before changing the floor.</p></div>
+    </div>
+
+    <p style="margin-top:26px;">And before you commit capital to a faster machine, check what fraction of your lead time that machine actually touches.</p>
+    <p>If you want to see where the waiting sits in your own plant and what the credible levers are, you can request a Flow Analysis at <a href="/flow-analysis" class="link">trooba.com/flow-analysis</a>.</p>
+
+    <h2 id="faqs">FAQs</h2>
+
+    <details class="blog-faq" open>
+      <summary>What percentage of manufacturing lead time is actually processing time?</summary>
+      <p>In high-mix, low-volume plants, touch time is typically a single-digit percentage of total lead time. The exact figure varies widely by industry, batch size, and product mix, so the only reliable number is your own. Take several recent orders, divide summed standard processing time by calendar days elapsed from order entry to shipment, and use that as your baseline.</p>
+    </details>
+    <details class="blog-faq">
+      <summary>Will buying a faster machine reduce my lead time?</summary>
+      <p>Usually only slightly, unless that machine is also your most heavily loaded resource. A faster machine reduces touch time, which is the smaller share of lead time. It can help meaningfully if it lowers utilisation at a constrained resource, because queue time falls sharply as utilisation drops. If it just feeds a downstream queue faster, WIP moves and lead time barely changes.</p>
+    </details>
+    <details class="blog-faq">
+      <summary>What is the difference between queue time and lead time?</summary>
+      <p>Lead time is the total calendar time from order entry to shipment. Queue time is one component of it: the time a job spends waiting rather than being worked on. Lead time also includes touch time and transport time. In most job shops, queue time is by far the largest component, which is why lead time reduction is mainly a queue reduction exercise.</p>
+    </details>
+    <details class="blog-faq">
+      <summary>Why do lead times get worse when the plant gets busier?</summary>
+      <p>Because queue time is governed by utilisation in a non-linear way. Kingman's formula includes the term ρ/(1−ρ), where ρ is utilisation. Going from 80% to 90% loading roughly doubles that term. Going from 90% to 95% doubles it again. Each additional point of loading costs more waiting than the point before it.</p>
+    </details>
+    <details class="blog-faq">
+      <summary>Can I reduce lead time without reducing WIP?</summary>
+      <p>Not if throughput stays constant. Little's Law states that lead time equals WIP divided by throughput, so with fixed throughput, lead time falls only when WIP falls. You can also shorten lead time by increasing throughput at the same WIP level, but for most plants controlling release and cutting WIP is the faster and cheaper route.</p>
+    </details>
+    <details class="blog-faq">
+      <summary>How do I know which waiting to attack first?</summary>
+      <p>Walk one real job end to end and record every point where it sat still and for how long. Rank those delays by duration. Most plants find the largest blocks are batch waiting and decision or approval waiting, not machine queues. Attack the largest block first, then re-measure, because fixing one delay often shifts the constraint somewhere else.</p>
+    </details>
+
+  
+<div class="blog-endcta">
+    <p>See what your utilisation targets are doing to your lead time.</p>
+    <a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a>
+  </div>

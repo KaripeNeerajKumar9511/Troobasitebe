@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r"admin/pages", views.PageViewSet, basename="admin-pages")
 router.register(r"admin/team", views.TeamMemberViewSet, basename="admin-team")
 router.register(r"admin/case-studies", views.CaseStudyViewSet, basename="admin-cases")
+router.register(r"admin/blogs", views.BlogPostViewSet, basename="admin-blogs")
 router.register(r"admin/solutions", views.SolutionCardViewSet, basename="admin-solutions")
 router.register(r"admin/media", views.MediaAssetViewSet, basename="admin-media")
 router.register(
@@ -29,6 +30,8 @@ urlpatterns = [
     path("admin/settings/", views.SiteSettingsView.as_view()),
     path("public/site/", views.public_site),
     path("public/pages/<slug:slug>/", views.public_page),
+    path("public/blogs/", views.public_blogs),
+    path("public/blogs/<slug:slug>/", views.public_blog),
     path("public/leads/contact/", views.public_contact_lead),
     path("public/leads/request/", views.public_request_lead),
     path("", include(router.urls)),

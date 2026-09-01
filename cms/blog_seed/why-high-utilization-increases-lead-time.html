@@ -1,0 +1,128 @@
+<p class="lead">High machine utilization increases manufacturing lead time because a machine kept close to full load has no slack to absorb variability, so jobs wait in queue instead of being worked on. The machine looks more productive on the report. The order takes longer to reach the customer.</p>
+    <p>This is not an opinion. It falls out of queueing theory, which is the branch of applied mathematics that describes what happens when arrivals are irregular and service times vary. Trooba Flow, our Factory Flow Intelligence software, models a plant as an open queueing network for exactly this reason: to show what a utilization target will do to lead time before anyone changes a schedule.</p>
+
+    <h2 id="buys">The two things utilization actually buys you</h2>
+    <p>First, definitions, because these words get used loosely on the shop floor.</p>
+
+    <div class="blog-icons">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Utilization</h5><p>The fraction of available time a resource spends doing productive work. 6.8 hrs of an 8-hr shift is 85%.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Queue time</h5><p>Time a job spends waiting at a resource before work begins. Nothing is happening to the part.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Work in process</h5><p>The total number of jobs released into the plant but not yet finished.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Lead time</h5><p>Elapsed calendar time from job release to completion — or <a href="/blog/manufacturing-critical-path-time-mct">MCT</a>, door to door.</p></div>
+    </div>
+
+    <p>Higher utilization buys you two things. It spreads fixed cost over more output, and it raises throughput up to the point where the resource saturates. Both are real. Neither has anything to do with speed of delivery for an individual order.</p>
+    <p>What high utilization costs you is buffer. A machine at 98% has 2% of its time uncommitted. When a job arrives early, or a setup runs long, or an operator is pulled to another cell, there is nowhere for that disruption to go except into the queue behind it.</p>
+
+    <h2 id="mechanism">The mechanism: variability, utilization, time</h2>
+    <p>The relationship between utilization and waiting is described by Kingman's formula, also called the VUT equation because it has three factors: variability, utilization, and time. In plain language:</p>
+    <div class="blog-formula">Queue time &asymp; variability factor &times; utilization factor &times; average process time</div>
+    <p>The utilization factor is the part that matters here. It is &rho; / (1 &minus; &rho;), where &rho; is utilization expressed as a decimal. Look at what that fraction does. At 50% utilization it equals 1. At 90% it equals 9. At 98% it equals 49. The denominator is shrinking toward zero, so the whole term runs away. This is why waiting time does not scale with utilization in any intuitive way. It bends.</p>
+    <p>The variability factor is the average of the squared coefficients of variation of arrivals and of service times. If arrivals are perfectly regular and every job takes exactly the same time, this factor is zero and there is no queue at all, at any utilization. That factory does not exist. In high-mix, low-volume work it is the opposite: mixed routings, uneven order sizes, variable setups, and rush jobs push the variability factor well above 1.</p>
+    <p>Variability and utilization multiply. Reducing one makes the other less punishing, and a plant with high variability is punished much earlier on the utilization curve than a plant with stable, repetitive flow.</p>
+
+    <h2 id="curve">Why the curve is the whole story</h2>
+    <p>Most capacity discussions assume a straight line. Push utilization from 75% to 85% and you assume you have given up a little responsiveness for a lot of efficiency. Push it to 95% and you assume you have given up a little more.</p>
+    <div class="blog-callout">You have not. The last five points of utilization cost more than the first fifty combined.</div>
+
+    <h2 id="example">A worked example</h2>
+    <p class="blog-note">The following numbers are illustrative, generated from Kingman's approximation, not measured in a specific plant.</p>
+    <p>Take one workcell. Average process time is 30 minutes per job, with a variability factor of 1.</p>
+
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Total time at the cell, by utilization &middot; process time is 30 min in every column</p>
+      <svg viewBox="0 0 520 200" width="100%" role="img" aria-label="Bar chart showing total time at a workcell rising sharply from 2 hours at 75 percent utilization to 25 hours at 98 percent utilization">
+        <g font-family="inherit">
+          <!-- bars -->
+          <g>
+            <rect x="30"  y="146" width="60" height="14" fill="var(--chart-neutral-1)"></rect>
+            <rect x="130" y="130" width="60" height="30" fill="var(--chart-neutral-1)"></rect>
+            <rect x="230" y="104" width="60" height="56" fill="var(--chart-primary)"></rect>
+            <rect x="330" y="48"  width="60" height="112" fill="var(--action-primary)"></rect>
+            <rect x="430" y="20"  width="60" height="140" fill="var(--action-primary-hover)"></rect>
+          </g>
+          <line x1="20" y1="160" x2="500" y2="160" stroke="var(--border-subtle)"></line>
+          <text x="60"  y="178" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">75%</text>
+          <text x="160" y="178" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">85%</text>
+          <text x="260" y="178" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">90%</text>
+          <text x="360" y="178" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">95%</text>
+          <text x="460" y="178" text-anchor="middle" font-size="12" fill="var(--text-tertiary)">98%</text>
+          <text x="60"  y="140" text-anchor="middle" font-size="12" fill="var(--text-primary)" font-weight="700">2.0h</text>
+          <text x="160" y="124" text-anchor="middle" font-size="12" fill="var(--text-primary)" font-weight="700">3.3h</text>
+          <text x="260" y="98"  text-anchor="middle" font-size="12" fill="var(--text-inverse)" font-weight="700">5.0h</text>
+          <text x="360" y="42"  text-anchor="middle" font-size="12" fill="var(--text-inverse)" font-weight="700">10.0h</text>
+          <text x="460" y="14"  text-anchor="middle" font-size="12" fill="var(--text-primary)" font-weight="700">25.0h</text>
+        </g>
+      </svg>
+    </div>
+
+    <table class="tbl blog-table">
+      <tr><th>Utilization</th><th>Avg. queue time</th><th>Total time at the cell</th><th>vs. 75% baseline</th></tr>
+      <tr><td>75%</td><td>1.5 hr</td><td>2.0 hr</td><td>1.0&times;</td></tr>
+      <tr><td>85%</td><td>2.8 hr</td><td>3.3 hr</td><td>1.7&times;</td></tr>
+      <tr data-risk="true"><td>90%</td><td>4.5 hr</td><td>5.0 hr</td><td>2.5&times;</td></tr>
+      <tr data-risk="true"><td>95%</td><td>9.5 hr</td><td>10.0 hr</td><td>5.0&times;</td></tr>
+      <tr data-risk="true"><td>98%</td><td>24.5 hr</td><td>25.0 hr</td><td>12.5&times;</td></tr>
+    </table>
+
+    <p>Processing time never changed. It is 30 minutes in every row. Everything else is waiting. Going from 90% to 95% doubles the time a job spends at that cell. You did not add work. You did not slow the machine. You removed slack.</p>
+    <p>Now put that cell in a routing. If a typical job passes through eight operations and every one of them is held at 95%, the accumulated time is about 80 hours. Run the same eight operations at 75% and it is about 16 hours. Same machines, same process times, same people. The difference is entirely queue.</p>
+    <p>Raise the variability factor to 4, realistic for a job shop with irregular order arrivals and long, uneven setups, and every queue figure above multiplies by four. At 90% utilization that cell now holds a job for roughly 18.5 hours instead of 5.</p>
+
+    <h2 id="littles-law">Little's Law tells you where to look</h2>
+    <div class="blog-formula">WIP = Throughput &times; Lead Time</div>
+    <p>Rearranged, it becomes a diagnostic: Lead Time = WIP &divide; Throughput. It is one of the few results in operations that holds regardless of distribution, sequencing rule, or process detail.</p>
+    <p>If a plant completes 40 jobs a day and there are 400 jobs on the floor, average lead time is 10 days. To cut lead time to 5 days at the same throughput, WIP has to come down to 200 jobs. There is no third option.</p>
+    <p>This is why high utilization and high WIP always travel together. Keeping every machine loaded requires a queue in front of every machine, because an empty queue means an idle machine. So when a plant manager says "we need more WIP to keep the machines busy," that statement is correct — and it is also a statement that lead time will be long.</p>
+
+    <h2 id="measurement">The measurement problem</h2>
+    <p>Most plants are instrumented to see utilization and blind to queue time. Machine monitoring reports spindle hours. ERP reports operation completions. Neither one reports how long a job sat on a rack. That asymmetry produces a predictable failure: teams optimise the thing they can see.</p>
+
+    <table class="tbl blog-table">
+      <tr><th></th><th>Utilization-first</th><th>Flow-first (QRM)</th></tr>
+      <tr><td>Primary metric</td><td>Resource utilization, machine hours</td><td>MCT, queue time, WIP</td></tr>
+      <tr><td>Treats idle time as</td><td>Waste to be eliminated</td><td>Capacity to absorb variability</td></tr>
+      <tr><td>Response to long lead time</td><td>Add shifts, add machines, push harder</td><td>Reduce batch size, variability, WIP</td></tr>
+      <tr><td>Typical batch policy</td><td>Large batches to amortise setup</td><td>Small batches, smaller transfer lots</td></tr>
+      <tr><td>Effect on delivery</td><td>Lead time grows quietly</td><td>Lead time falls, often without capex</td></tr>
+    </table>
+    <p>Neither column is morally superior. Utilization-first thinking is correct for a dedicated high-volume line running a stable product at predictable demand. It is the wrong model for high-mix, low-volume and make-to-order work, where the customer is buying responsiveness.</p>
+    <div class="blog-callout">QRM's practical guidance is to plan critical resources at roughly 70% to 80% of capacity rather than at 90% or above, precisely so the utilization factor stays in the flat part of the curve.</div>
+
+    <h2 id="tarinika">A measured result</h2>
+    <div class="blog-result">
+      <div class="txt"><p class="small">MEASURED RESULT — TARINIKA</p><p class="main">Tarinika, a jewellery manufacturer, reduced manufacturing lead time using the same factory and the same machines. No machine was made faster; no capacity was added. The changes acted on batch and transfer-lot policy and on how work was released.</p></div>
+      <div class="num">28 &rarr; 7<small>days &middot; &gt;75% reduction</small></div>
+    </div>
+
+    <h2 id="instead">What to do instead</h2>
+    <p>If lead time is the problem, work these in order.</p>
+    <div class="blog-icons blog-icons--3">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>1. Measure queue time</h5><p>Walk a representative part and compare total elapsed time to total touch time.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>2. Find what's above 85%</h5><p>Resource by resource, including inspection, setup crews, and shared skills.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>3. Attack variability first</h5><p>Level order release and standardise routings before touching capacity.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>4. Cut batch and transfer lot size</h5><p>Let a downstream cell start before the upstream batch finishes.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>5. Set a target, defend it</h5><p>Decide the utilization critical resources will run at, and stop treating idle as failure.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>6. Test before you change it</h5><p>A routing or shift change moves load somewhere else — model it first.</p></div>
+    </div>
+
+    <h2 id="fits">Where Trooba Flow fits</h2>
+    <p>Trooba Flow models your plant as an open queueing network: products, routings, resources, demand patterns, and variability. From that model it predicts where bottlenecks will form, how long queues will be, how much WIP will sit on the floor, what utilization each resource will run at, and what manufacturing lead time results.</p>
+    <p>That lets you ask the questions this article raises without running the experiment on live orders — a second shift on the press, a halved transfer lot, a shift in customer mix — as a projection, labelled as such every time, built from your data and established queueing relationships.</p>
+
+    <div class="blog-midcta"><p>See what your own utilization targets are doing to your lead time.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>
+
+    <h2>In short</h2>
+    <p>Utilization and lead time are not aligned goals. They pull against each other, and the tension gets sharply worse above about 85% because the utilization term in Kingman's formula grows non-linearly as it approaches full load. Variability multiplies that effect, which is why high-mix plants feel it first and hardest.</p>
+    <p>Little's Law then makes the trade visible: the WIP required to keep machines fully loaded is the same WIP that sets your lead time. The practical move is to stop treating idle capacity as waste and start treating it as the thing that buys you speed.</p>
+    <p>If you want to see what your own utilization targets are doing to your lead time, you can request a Flow Analysis at <a href="/flow-analysis" class="link">trooba.com/flow-analysis</a>.</p>
+
+    <h2 id="faqs">FAQs</h2>
+    <details class="blog-faq" open><summary>What is the ideal machine utilization rate for a job shop?</summary><p>There is no single correct number, but Quick Response Manufacturing generally recommends planning critical resources at roughly 70% to 80% of capacity rather than 90% or higher. Plants with irregular order patterns and long, uneven setups need more reserved capacity than plants with steady, repetitive flow.</p></details>
+    <details class="blog-faq"><summary>Does running machines at 100% utilization actually reduce cost per part?</summary><p>It reduces the fixed-cost share allocated to each part at that operation, which is why it looks good on a costing report. It also raises WIP, queue time, and lead time across the whole routing. Those costs appear as expediting, obsolescence, and lost orders, usually recorded somewhere other than the operation that caused them.</p></details>
+    <details class="blog-faq"><summary>Why does adding a machine sometimes not reduce lead time?</summary><p>Because the queue may not be at that machine. Adding capacity where utilization was already moderate changes very little, while the real constraint stays where it was. Queues also form at shared people, inspection, and approval steps. Model the whole routing before buying equipment.</p></details>
+    <details class="blog-faq"><summary>What is the difference between queue time and cycle time?</summary><p>Queue time is the waiting portion only, the time a job sits before work starts. Cycle time is usually the total time at a step, including queue time, setup, run time, move time, and inspection. In high-mix plants, queue time typically makes up the large majority of cycle time.</p></details>
+    <details class="blog-faq"><summary>How can lead time drop without adding capacity or speeding up machines?</summary><p>By changing what happens between operations rather than during them. Smaller batches and transfer lots, controlled order release, lower WIP, and reduced variability all shrink queues without touching process speed. The Tarinika result — 28 days to 7 days — came from lot sizing and queue dynamics on the same factory and the same machines.</p></details>
+    <details class="blog-faq"><summary>Is high utilization always a problem?</summary><p>No. On a dedicated high-volume line producing a stable product against predictable demand, variability is low, so queues stay small even at high load. The problem is specific to high-mix, low-volume and make-to-order environments, where mix itself generates the variability that turns a high utilization target into long, unstable lead times.</p></details>
+  
+<div class="blog-endcta"><p>See what your utilization targets are doing to your lead time.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>

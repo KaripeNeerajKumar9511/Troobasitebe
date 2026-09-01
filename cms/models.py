@@ -76,6 +76,30 @@ class CaseStudy(models.Model):
         return self.title
 
 
+class BlogPost(models.Model):
+    slug = models.SlugField(max_length=80, unique=True)
+    title = models.CharField(max_length=300)
+    dek = models.TextField(blank=True)
+    category = models.CharField(max_length=80, default="Manufacturing insights")
+    author = models.CharField(max_length=120, default="Trooba Team")
+    published_at = models.DateField(null=True, blank=True)
+    read_time = models.CharField(max_length=40, blank=True)
+    cover_url = models.CharField(max_length=500, blank=True)
+    cover_alt = models.CharField(max_length=255, blank=True)
+    body_html = models.TextField(blank=True)
+    seo = models.JSONField(default=dict)
+    is_published = models.BooleanField(default=True)
+    sort_order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["sort_order", "-published_at", "-id"]
+
+    def __str__(self):
+        return self.title
+
+
 class SolutionCard(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField(blank=True)

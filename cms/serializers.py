@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import (
+    BlogPost,
     CaseStudy,
     ContactSubmission,
     MediaAsset,
@@ -98,6 +99,50 @@ class CaseStudySerializer(serializers.ModelSerializer):
             "body_html",
             "sort_order",
             "is_active",
+        )
+
+
+class BlogPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogPost
+        fields = (
+            "id",
+            "slug",
+            "title",
+            "dek",
+            "category",
+            "author",
+            "published_at",
+            "read_time",
+            "cover_url",
+            "cover_alt",
+            "body_html",
+            "seo",
+            "is_published",
+            "sort_order",
+            "created_at",
+            "updated_at",
+        )
+        read_only_fields = ("id", "created_at", "updated_at")
+
+
+class BlogPostListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogPost
+        fields = (
+            "id",
+            "slug",
+            "title",
+            "dek",
+            "category",
+            "author",
+            "published_at",
+            "read_time",
+            "cover_url",
+            "cover_alt",
+            "is_published",
+            "sort_order",
+            "updated_at",
         )
 
 

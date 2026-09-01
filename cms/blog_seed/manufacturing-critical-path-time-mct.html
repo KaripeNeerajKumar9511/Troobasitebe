@@ -1,0 +1,134 @@
+<p class="lead">Manufacturing Critical-Path Time (MCT) is the typical amount of calendar time it takes, from the moment a customer places an order, along the longest chain of dependent activities, until the first piece of that order is delivered. It counts every day, including weekends, waiting, approvals, and outside processing.</p>
+    <p>Most plants measure only the fraction of that time when someone is actively working on the part, which is why their numbers look good while their customers still wait. That gap is the whole point of the metric. MCT was defined by Professor Rajan Suri as part of Quick Response Manufacturing (QRM), because the usual lead time numbers on a plant floor measure processing. Customers experience calendar time.</p>
+    <p>Trooba Flow is Factory Flow Intelligence software built on this idea. It models a plant as a queueing network so you can see where calendar time is actually going, and what would happen if you changed something, before you change it. This article explains the metric itself: what it measures, how to calculate it, what the underlying theory says about reducing it, and how to start.</p>
+
+    <h2 id="measures">What MCT actually measures</h2>
+    <p>Four words in the definition are doing almost all of the work. Get them wrong and you end up with a number that flatters the plant.</p>
+
+    <div class="blog-icons">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Typical</h5><p>Not the best job, not the worst — the one that happens most of the time.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Calendar time</h5><p>Days on a wall calendar. Weekends count. Waiting for a signature counts.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>First piece</h5><p>Ends when the first good piece reaches the customer, isolating responsiveness from batch size.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Critical path</h5><p>The longest chain of dependent activities, not the sum of everything happening.</p></div>
+    </div>
+    <p>For make-to-stock parts, the clock starts at whatever triggers replenishment instead of a customer order. The logic is unchanged.</p>
+
+    <h2 id="hides">Why standard lead time numbers hide the problem</h2>
+    <p>Most plants track something: quoted lead time, on-time delivery percentage, or machine cycle time. Each is useful. None of them tells you where the calendar time went.</p>
+    <p>Quoted lead time is a promise, not a measurement. If a plant quotes eight weeks and delivers in eight weeks, on-time delivery reads 100% and everyone is satisfied except the customer who wanted it in three. On-time delivery measures whether you kept your promise — it cannot tell you whether the promise was any good.</p>
+    <p>Cycle time and touch time are worse offenders, because they are usually excellent. A part that takes 51 calendar days to reach the customer may only accumulate eleven hours of actual work. Report the eleven hours and the plant looks efficient. It is efficient, at the operations. The problem is not in the operations, and no amount of improving them will fix it.</p>
+    <div class="blog-callout">This is the mistake most plants make. They spend a year shaving minutes off setups that sit inside a process where parts wait for weeks.</div>
+
+    <h2 id="calculate">How to calculate MCT: a worked example</h2>
+    <p class="blog-note">The following numbers are illustrative, not measured. They describe a typical machined-component job shop and are meant to show the method.</p>
+    <p>A bracket order flows like this:</p>
+
+    <table class="tbl blog-table">
+      <tr><th>Segment</th><th>Calendar days on critical path</th><th>Touch time</th></tr>
+      <tr><td>Order entry to confirmed order</td><td>4</td><td>2.0 h</td></tr>
+      <tr><td>Engineering and CNC programming</td><td>(6, runs in parallel)</td><td>3.0 h</td></tr>
+      <tr><td>Raw material procurement</td><td>12</td><td>0.5 h</td></tr>
+      <tr><td>Saw and stage</td><td>3</td><td>0.4 h</td></tr>
+      <tr><td>CNC milling</td><td>14</td><td>2.5 h</td></tr>
+      <tr><td>Deburr and in-process inspection</td><td>4</td><td>1.0 h</td></tr>
+      <tr><td>Outside heat treatment</td><td>9</td><td>4.0 h</td></tr>
+      <tr><td>Final inspection and packing</td><td>3</td><td>1.5 h</td></tr>
+      <tr><td>Transit to customer</td><td>2</td><td>&mdash;</td></tr>
+      <tr><td class="blog-hi">Total (critical path)</td><td class="blog-hi">51 days</td><td class="blog-hi">14.9 h</td></tr>
+    </table>
+    <p>Engineering takes six days but runs alongside the twelve-day procurement window, so only the longer of the two counts. Adding the critical-path segments gives 4 + 12 + 3 + 14 + 4 + 9 + 3 + 2 = <strong>51 days MCT</strong>.</p>
+    <p>Now add up the touch time: 14.9 hours, or roughly two working days &mdash; about 4% of the total. The other 96% of the customer's wait is queueing, batching, waiting for approval, waiting for a truck, waiting for a machine that is busy with something else.</p>
+
+    <h2 id="map">The MCT map</h2>
+    <p>QRM's standard way of showing this is an MCT map: a single horizontal bar scaled to total calendar time, divided into grey space (touch time) and white space (everything else).</p>
+
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">MCT map for the bracket order &middot; 51 days total &middot; scaled to calendar days on the critical path</p>
+      <div class="blog-mct">
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:7.8%;">4d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:23.5%;">Procurement &middot; 12d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:5.9%;">3d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:27.5%;">Milling wait &middot; 14d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:7.8%;">4d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:17.6%;">Heat treat &middot; 9d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:5.9%;">3d</div>
+        <div class="blog-mct__seg blog-mct__seg--touch" style="width:3.9%;"></div>
+      </div>
+      <div class="blog-legend">
+        <span><span class="swatch" style="background:var(--text-accent);"></span>Grey space &mdash; touch time (14.9h, ~4%)</span>
+        <span><span class="swatch" style="background:var(--chart-neutral-3);"></span>White space &mdash; queue, batch, approval, transit (~96%)</span>
+      </div>
+    </div>
+
+    <h3>Reading the map</h3>
+    <p>Two things fall out of a completed map immediately. First, the largest white blocks are your real targets. Here, procurement (12 days) and the wait ahead of CNC milling (most of 14) hold more than half the total. Buying a faster mill would attack the 2.5 hours of grey space inside that fourteen-day block.</p>
+    <p>Second, the ratio of grey to white is a diagnostic in its own right. A very low ratio does not mean people are idle. It means the system is holding work between operations, which points at batch sizes, scheduling policy, and utilisation rather than at effort.</p>
+
+    <h2 id="theory">The theory underneath: why white space behaves the way it does</h2>
+    <p>MCT tells you how much waiting there is. Two well-established results explain why it is there, and both determine which interventions work.</p>
+
+    <h3>Little's Law</h3>
+    <div class="blog-formula">WIP = Throughput &times; Flow Time</div>
+    <p>Work in process (WIP) is the number of jobs currently inside the system. Throughput is the rate at which jobs leave it. Flow time is how long a job spends inside. Rearranged, flow time equals WIP divided by throughput.</p>
+    <p>The practical consequence: if throughput is fixed by demand, the only way to shorten flow time is to hold less work in process. Releasing more orders to the floor to "keep everyone busy" raises WIP, and Little's Law says lead time rises with it. This is why plants that push more work into the shop to catch up on late orders usually end up later.</p>
+
+    <h3>Kingman's formula and the utilisation trap</h3>
+    <p>Queue time is the largest component of white space in most plants, and it does not behave linearly. Kingman's approximation, the VUT relationship, expresses average queue time as the product of variability, utilisation, and processing time. The utilisation factor takes the form &rho; / (1 &minus; &rho;), where &rho; is the fraction of available time a resource is busy.</p>
+    <table class="tbl blog-table">
+      <tr><th>Utilisation (&rho;)</th><th>&rho; / (1 &minus; &rho;)</th></tr>
+      <tr><td>70%</td><td>&asymp; 2.3</td></tr>
+      <tr><td>90%</td><td>&asymp; 9.0</td></tr>
+      <tr><td>95%</td><td>&asymp; 19.0</td></tr>
+    </table>
+    <p>Queue time rises sharply, not gradually, as utilisation approaches its limit, and the closer you push, the more violently it responds to any variability at all. This explains the paradox almost every high-mix plant lives with: the machines are busy, the people are busy, and the orders are still late. High utilisation is not the same thing as high responsiveness — past a point they are in direct opposition.</p>
+    <p>It also explains why capacity that looks like waste is not. A resource held at 80% rather than 95% is not idle 15% of the time for nothing. It is buying a large reduction in queue time for every job that passes through.</p>
+    <p>Trooba Flow uses an open queueing network model, based on the Allen&ndash;Cunneen approximation, to compute these effects across a whole plant rather than one machine at a time, since queue time at one resource becomes variable arrival timing at the next. See also <a href="/blog/why-high-utilization-increases-lead-time">why high utilisation increases lead time</a> and <a href="/blog/manufacturing-lead-time-waiting-not-processing">why most lead time is waiting</a>.</p>
+
+    <h2 id="compare">MCT compared with the metrics you already track</h2>
+    <table class="tbl blog-table">
+      <tr><th>Metric</th><th>What it measures</th><th>What it misses</th></tr>
+      <tr><td>Quoted lead time</td><td>The promise made to the customer</td><td>Whether the promise reflects reality</td></tr>
+      <tr><td>On-time delivery %</td><td>Adherence to that promise</td><td>Whether the promise was competitive</td></tr>
+      <tr><td>Machine cycle time</td><td>Duration of one operation</td><td>All time between operations</td></tr>
+      <tr><td>Touch time</td><td>Total active work per order</td><td>Queueing, batching, approvals, transit</td></tr>
+      <tr><td>Throughput</td><td>Output rate of the plant</td><td>How long any individual order waited</td></tr>
+      <tr><td class="blog-hi">MCT</td><td class="blog-hi">Total calendar time, order to first piece</td><td class="blog-hi">Nothing the customer experiences — deliberately the widest measure</td></tr>
+    </table>
+    <p>MCT does not replace these. It sits above them and gives them context. On-time delivery of 98% against a 51-day MCT is a different business from 98% against a 12-day MCT, and only one of those two plants can win work on responsiveness.</p>
+
+    <h2 id="start">How to start measuring MCT in your plant</h2>
+    <p>You do not need a system to begin. You need one part family and a set of dated records.</p>
+    <div class="blog-icons blog-icons--3">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>1. Pick a family</h5><p>Not the easiest, not the nightmare — the one that best represents the work you want more of.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>2. Fix start and end</h5><p>Start at order receipt, end at first good piece delivered. Write both down first.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>3. Work backwards</h5><p>Use dated records: acknowledgement, receipt, move tickets, sign-off, proof of delivery.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>4. Take the typical job</h5><p>Pull 10&ndash;15 recent orders and use the middle of the range, not the best.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>5. Record touch time</h5><p>Separately at each step, from routings or direct observation.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>6. Draw the map</h5><p>To scale, and calculate the grey-to-white ratio.</p></div>
+    </div>
+    <p>The first map usually takes a day or two of digging and produces a number nobody in the room believed was possible. That reaction is the point.</p>
+    <p>Once you have a baseline, the question shifts from what is happening to what to change. That is harder, because the interventions interact: cutting a transfer batch in half reduces queue time downstream but increases move frequency; adding a shift on the bottleneck may relieve it or move the constraint somewhere less convenient. Guessing costs a quarter to find out. Modelling the change in a queueing model, and comparing projected MCT, WIP, and utilisation before anything moves on the floor, costs an afternoon. That is what Trooba Flow's what-if scenarios are for.</p>
+
+    <h2 id="tarinika">What a lower MCT looks like in practice</h2>
+    <div class="blog-result">
+      <div class="txt"><p class="small">MEASURED RESULT — TARINIKA</p><p class="main">Tarinika, a jewellery manufacturer, reduced manufacturing lead time using the same factory and the same machines. The constraint was lot sizing and queue dynamics, not machine speed.</p></div>
+      <div class="num">28 &rarr; 7<small>days &middot; &gt;75% reduction</small></div>
+    </div>
+    <p>The mechanism is the one described above. Nothing got faster in the sense of running at higher speed. Work stopped waiting as long. Results of this kind depend on the structure of the specific plant, and a system already running at low utilisation with small batches has less white space available to remove.</p>
+
+    <div class="blog-midcta"><p>See your own plant modelled this way.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>
+
+    <h2>In short</h2>
+    <p>MCT reframes lead time as a question about calendar days rather than processing minutes, and once you draw it to scale, the answer is usually uncomfortable and useful in equal measure. The white space is where your lead time lives. Little's Law says you shorten it by holding less work in the system, not by pushing more in. Kingman's formula says the last few percent of utilisation are far more expensive than they look on a spreadsheet.</p>
+    <p>None of this requires new machines. It requires knowing where the time goes, and being willing to act on what the map says rather than on what feels productive.</p>
+    <p>If you want to see your own plant modelled this way, you can request a Flow Analysis at <a href="/flow-analysis" class="link">trooba.com/flow-analysis</a>.</p>
+
+    <h2 id="faqs">FAQs</h2>
+    <details class="blog-faq" open><summary>What is the difference between MCT and lead time?</summary><p>Lead time is usually a quoted promise or an internal estimate, and it often excludes weekends, approvals, and outside processing. MCT is a measurement of actual calendar days along the longest chain of dependent activities, from order receipt to delivery of the first good piece &mdash; deliberately the wider number, because it reflects what the customer actually experiences.</p></details>
+    <details class="blog-faq"><summary>Is MCT the same as cycle time?</summary><p>No. Cycle time normally refers to how long one operation takes, and touch time is the sum of active work across an order. MCT includes all of that plus every interval where nothing is happening: queueing, batching, waiting for material, inspection backlogs, transit. In many high-mix plants touch time accounts for only a small single-digit percentage of MCT.</p></details>
+    <details class="blog-faq"><summary>Why does MCT measure to the first piece rather than the whole order?</summary><p>Measuring to the last piece makes MCT depend on order quantity, so a plant could improve the number by accepting smaller orders while changing nothing about its flow. Ending the clock at the first good piece isolates the system's responsiveness from batch size, which makes MCT comparable across products, order sizes, and plants.</p></details>
+    <details class="blog-faq"><summary>Can MCT be reduced without buying new equipment?</summary><p>Often, yes. Because most of MCT is waiting rather than working, the levers are usually lot sizing, order release policy, routing, transfer batch size, and how close key resources run to full utilisation. Whether a specific plant has room depends on its current structure.</p></details>
+    <details class="blog-faq"><summary>How do I calculate MCT if my data is incomplete?</summary><p>Start with what has dates attached: order acknowledgements, material receipts, move tickets, inspection sign-offs, packing lists, proof of delivery. Take ten to fifteen recent orders in one part family and use the typical job, not the best one. An approximate first map built from real dates is far more useful than a precise number for a job that never happens.</p></details>
+    <details class="blog-faq"><summary>Does MCT apply to make-to-stock manufacturing?</summary><p>Yes, with one adjustment. Instead of starting the clock at a customer order, it starts at whatever triggers replenishment, such as a kanban signal or a reorder point. Everything else is unchanged: calendar time, critical path, first good piece.</p></details>
+  
+<div class="blog-endcta"><p>See your own plant modelled as an MCT map.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>

@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import (
+    BlogPost,
     CaseStudy,
     ContactSubmission,
     MediaAsset,
@@ -17,6 +18,8 @@ from .models import (
     TeamMember,
 )
 from .serializers import (
+    BlogPostListSerializer,
+    BlogPostSerializer,
     CaseStudySerializer,
     ContactSubmissionSerializer,
     MediaAssetSerializer,
@@ -91,6 +94,7 @@ def dashboard_view(request):
             "requests": requests,
             "members": contacts + requests,
             "pages": Page.objects.count(),
+            "blogs": BlogPost.objects.count(),
             "media": MediaAsset.objects.count(),
             "recent_contacts": recent_contacts,
             "recent_requests": recent_requests,
@@ -111,6 +115,9 @@ def public_site(request):
     data["solutions"] = SolutionCardSerializer(
         SolutionCard.objects.filter(is_active=True), many=True
     ).data
+    data["blogs"] = BlogPostListSerializer(
+        BlogPost.objects.filter(is_published=True), many=True
+    ).data
     return Response(data)
 
 
@@ -122,6 +129,23 @@ def public_page(request, slug):
     except Page.DoesNotExist:
         return Response({"error": "Not found"}, status=404)
     return Response(PageSerializer(page).data)
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def public_blogs(request):
+    posts = BlogPost.objects.filter(is_published=True)
+    return Response(BlogPostListSerializer(posts, many=True).data)
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def public_blog(request, slug):
+    try:
+        post = BlogPost.objects.get(slug=slug, is_published=True)
+    except BlogPost.DoesNotExist:
+        return Response({"error": "Not found"}, status=404)
+    return Response(BlogPostSerializer(post).data)
 
 
 @api_view(["POST"])
@@ -198,6 +222,17 @@ class CaseStudyViewSet(viewsets.ModelViewSet):
     queryset = CaseStudy.objects.all()
     serializer_class = CaseStudySerializer
     lookup_field = "id"
+
+
+class BlogPostViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = BlogPost.objects.all()
+    lookup_field = "id"
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return BlogPostListSerializer
+        return BlogPostSerializer
 
 
 class SolutionCardViewSet(viewsets.ModelViewSet):
