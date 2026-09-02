@@ -1,8 +1,18 @@
-.env
+# Python virtual environment
+env/
+venv/
 .venv/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Python
 __pycache__/
 *.py[cod]
-media/
-staticfiles/
-.idea/
-.vscode/
+*.pyo
+
+# Django
+*.log
+db.sqlite3
