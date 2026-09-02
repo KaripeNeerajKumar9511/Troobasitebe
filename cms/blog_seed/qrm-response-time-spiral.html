@@ -1,0 +1,138 @@
+<p class="lead">Long manufacturing lead times often create the very behaviours that make lead times longer. When delivery becomes unreliable, manufacturers release work earlier, increase buffers, expedite urgent orders, and build larger batches. Those actions increase work in process, variability, and congestion. Queues grow. Lead times stretch again.</p>
+    <p>This reinforcing cycle is what Quick Response Manufacturing describes as the QRM Response Time Spiral. Trooba Flow, our Factory Flow Intelligence software, approaches the same problem by modelling products, routings, resources, demand, and variability as a queueing network so manufacturers can see what is actually driving queue time, WIP, utilisation, and manufacturing lead time.</p>
+
+    <h2 id="what">What is the QRM Response Time Spiral?</h2>
+    <p>The QRM Response Time Spiral is a feedback loop in which long or unreliable response times encourage operating practices that create even more delay. A plant sees that orders are taking too long. Management responds by adding protection:</p>
+    <div class="blog-icons">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Release jobs earlier</h5><p>Give production more calendar time by launching work before it is needed.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Increase safety time</h5><p>Pad dates so the plant has more room to recover from delay.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Build larger batches</h5><p>Amortise setups by running more pieces every time a machine is set.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Keep machines busy</h5><p>Push utilisation whenever a resource looks idle.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Expedite important orders</h5><p>Jump the queue for customers who cannot wait.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Add more priorities</h5><p>Layer the schedule with exceptions until everything is urgent.</p></div>
+    </div>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">The Response Time Spiral &middot; each protection step feeds the next</p>
+      <div class="blog-loop">
+        <div class="blog-loop__step"><p class="num">01</p><h5>Unreliable lead time</h5></div>
+        <div class="blog-loop__step"><p class="num">02</p><h5>Release earlier</h5></div>
+        <div class="blog-loop__step"><p class="num">03</p><h5>WIP and queues grow</h5></div>
+        <div class="blog-loop__step"><p class="num">04</p><h5>Expedite and interrupt</h5></div>
+        <div class="blog-loop__step"><p class="num">05</p><h5>Add more protection</h5></div>
+      </div>
+      <p class="blog-loop__note">The loop returns to step 01: lead time is now even less reliable.</p>
+    </div>
+    <p>Each decision can look reasonable when viewed separately. Together, they can make factory flow worse. More work is released into the system. More jobs compete for the same machines and people. Expedites interrupt existing sequences. Batches hold downstream operations waiting. Utilisation rises. The result is more queueing. The plant now needs even more protection against unreliable lead times, and the spiral continues. For the broader strategy, see <a href="/blog/quick-response-manufacturing-qrm">what Quick Response Manufacturing (QRM) is</a>.</p>
+
+    <h2 id="wip">How long lead times create more WIP</h2>
+    <p>One of the easiest ways to understand the spiral is through Little's Law:</p>
+    <div class="blog-formula">WIP = Throughput &times; Lead Time</div>
+    <p>WIP means work in process: all jobs that have entered the manufacturing system but have not yet finished. Suppose a factory completes 100 orders per week. If average manufacturing lead time is two weeks: WIP = 100 &times; 2 = <strong>200 orders</strong>.</p>
+    <p>Now imagine deliveries become unreliable. Planners start releasing orders one week earlier so production has more time to complete them. If average time inside the system rises to three weeks while throughput remains 100 orders per week: WIP = 100 &times; 3 = <strong>300 orders</strong>.</p>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Little's Law at 100 orders per week &middot; earlier release raises WIP</p>
+      <div class="blog-compare">
+        <div class="blog-compare__row">
+          <div class="blog-compare__meta"><span>2-week lead time</span><strong>200 orders in process</strong></div>
+          <div class="blog-compare__track"><div class="blog-compare__fill" style="width:67%"></div></div>
+        </div>
+        <div class="blog-compare__row">
+          <div class="blog-compare__meta"><span>3-week lead time</span><strong>300 orders in process</strong></div>
+          <div class="blog-compare__track"><div class="blog-compare__fill blog-compare__fill--accent" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+    <p>That additional work does not disappear. It waits in front of equipment. It sits between operations. It occupies floor space. It competes for labour and material handling. Planners spend more time deciding which order should move next. The extra protection intended to improve delivery performance can therefore increase the congestion causing poor delivery performance in the first place.</p>
+    <p class="blog-note">This is an illustrative example, not a measured customer result. Its purpose is to show the relationship described by Little's Law.</p>
+
+    <h2 id="waiting">Why more WIP usually means more waiting</h2>
+    <p>Manufacturing lead time is not simply processing time. A component might require only a few hours of actual machining, printing, assembly, or inspection while spending several days waiting between operations. That waiting occurs because resources are shared. When several jobs need the same machine, only one can usually be processed at a time. The rest form a queue.</p>
+    <p>Queueing theory tells us that waiting becomes increasingly sensitive as utilisation rises, particularly when arrivals and processing times vary. This is the practical message behind relationships such as Kingman's formula and other queueing approximations: queue time does not normally increase in a simple straight line as a resource approaches full utilisation. It can rise sharply.</p>
+    <p>That is why a factory can appear productive while customer lead time deteriorates. A machine running continuously may look efficient locally. But if the result is a large queue waiting in front of that machine, the factory as a whole may be slower. See <a href="/blog/why-high-utilization-increases-lead-time">why high utilisation increases lead time</a>.</p>
+
+    <h2 id="five-steps">The five steps of the Response Time Spiral</h2>
+    <p>The exact sequence differs between factories, but the underlying mechanism often looks like this.</p>
+    <div class="blog-steps">
+      <div class="blog-step"><p class="num">01</p><h5>Lead times become unreliable</h5><p>Orders regularly take longer than expected. The instinctive response is to give production more time.</p></div>
+      <div class="blog-step"><p class="num">02</p><h5>Work is released earlier</h5><p>Planners launch jobs well before they are actually required at the first operation. The order is technically &ldquo;in production,&rdquo; but much of that additional time may be spent waiting. WIP increases.</p></div>
+      <div class="blog-step"><p class="num">03</p><h5>Queues increase</h5><p>More jobs now compete for the same capacity. Even resources that were previously manageable can develop long queues when utilisation, variability, and WIP interact. <a href="/blog/manufacturing-critical-path-time-mct">Manufacturing Critical-Path Time (MCT)</a> starts to grow.</p></div>
+      <div class="blog-step"><p class="num">04</p><h5>Expediting increases</h5><p>Some customer orders cannot tolerate the longer lead time. They become rush jobs. Rush jobs jump queues, change priorities, and disrupt established sequences. Jobs that were previously on time can now become late. Schedule variability increases.</p></div>
+      <div class="blog-step"><p class="num">05</p><h5>More protection is added</h5><p>Because the system has become less predictable, planners release future orders even earlier or add larger buffers. The loop begins again.</p></div>
+    </div>
+    <p>The Response Time Spiral is therefore not simply a scheduling problem. It is a system behaviour.</p>
+
+    <h2 id="utilisation">Why high utilisation can accelerate the spiral</h2>
+    <p>A common response to poor performance is to push resources harder. If orders are late, managers naturally ask: &ldquo;Why isn't this machine running?&rdquo; That question makes sense when equipment is extremely expensive or genuine capacity shortages exist.</p>
+    <p>But maximising utilisation across every resource can create a different problem. A resource needs some spare capacity to absorb normal variability. Demand does not arrive perfectly evenly. Setup times change. Jobs take different amounts of time. Operators become unavailable. Rework happens. Material arrives late.</p>
+    <p>When a resource already operates close to its practical capacity, those fluctuations have nowhere to go. They become queues. This is why QRM often refers to strategic spare capacity. The objective is not idle equipment for its own sake. The objective is enough capacity flexibility to keep work moving quickly.</p>
+
+    <h2 id="batching">Batching can make the problem worse</h2>
+    <p>Large batches are another common form of protection. The logic is understandable. If changing a machine takes time, run more pieces every time it is set up. That can reduce setup time per unit. But the local efficiency gain may create a system-level lead-time penalty.</p>
+    <p>Consider two operations. Operation A produces a batch of 500 pieces before sending it to Operation B. If Operation B cannot start until all 500 pieces are complete, the first finished piece waits while the remaining 499 are processed. Now consider transferring smaller quantities downstream while the larger production batch continues. Operation B can begin sooner.</p>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Whole batch of 500 vs overlapping transfer lots</p>
+      <div class="blog-ops">
+        <div class="blog-op">
+          <p class="name">Wait for 500</p>
+          <p class="val">Operation B cannot start until the full batch is complete</p>
+        </div>
+        <div class="blog-op" style="background:var(--state-selected);">
+          <p class="name">Transfer smaller lots</p>
+          <p class="val">Operation B starts earlier while A continues on the rest</p>
+        </div>
+      </div>
+    </div>
+    <p>The processing time per individual part may not change at all. Yet manufacturing lead time can fall because waiting between operations is reduced. This distinction between production lot size and transfer lot size is important in flow improvement. Large batches can make machines look efficient while making orders move slowly.</p>
+
+    <h2 id="behaviour">The spiral changes management behaviour too</h2>
+    <p>The Response Time Spiral is not only physical. It also creates administrative work. Long lead times often lead to more schedule meetings, more customer-status requests, more manual reprioritisation, more expediting, more buffer calculations, more forecast dependence, and more coordination between departments.</p>
+    <p>People begin managing exceptions instead of improving flow. Eventually the factory can reach a strange state: everyone is busy, machines are busy, planners are busy, yet orders continue to wait. That is one reason reducing lead time can produce benefits beyond faster delivery. A more responsive system can require less intervention simply to keep orders moving.</p>
+
+    <h2 id="reactions">Common reactions versus flow-oriented responses</h2>
+    <table class="tbl blog-table">
+      <tr><th>When lead time increases</th><th>Common reaction</th><th>Possible flow effect</th><th>Flow-oriented question</th></tr>
+      <tr><td>Orders are late</td><td>Release work earlier</td><td>More WIP and queueing</td><td>Why are orders waiting?</td></tr>
+      <tr><td>Machine looks overloaded</td><td>Push utilisation higher</td><td>Longer queues</td><td>Is capacity or variability driving the queue?</td></tr>
+      <tr><td>Setups seem expensive</td><td>Increase batch sizes</td><td>More waiting between operations</td><td>Can lot or transfer sizes be reduced?</td></tr>
+      <tr><td>Customer order is urgent</td><td>Expedite it</td><td>Disrupts other jobs</td><td>Why is normal flow unreliable?</td></tr>
+      <tr><td>Delivery dates are missed</td><td>Add more safety time</td><td>Longer planned response time</td><td>What is driving MCT?</td></tr>
+    </table>
+    <p>The purpose is not to claim that every early release, large batch, or expedite is wrong. Sometimes these actions are necessary. The problem begins when they become permanent substitutes for understanding the underlying flow problem.</p>
+
+    <h2 id="break">How to break the QRM Response Time Spiral</h2>
+    <p>Breaking the spiral starts by changing the question. Instead of asking how we push more work through each machine, ask what is preventing orders from moving through the factory quickly. That requires separating processing time from waiting time.</p>
+    <p>For each important product family, examine:</p>
+    <div class="blog-icons blog-icons--3">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Where work waits</h5><p>Find the queues, not only the busy machines.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Which resources queue</h5><p>Identify the largest waits by resource, including people and inspection.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Utilisation at those resources</h5><p>Especially where load sits above the flat part of the curve.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Arrival and process variability</h5><p>Mix, setups, rush jobs, and uneven release all multiply waiting.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Batch and transfer sizes</h5><p>Ask whether lots are increasing waiting between operations.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Release timing and MCT mix</h5><p>Is work launched substantially earlier than necessary? How much of MCT is processing versus queue?</p></div>
+    </div>
+    <p>The answer is often not &ldquo;buy another machine.&rdquo; It may be a routing change, capacity adjustment, smaller transfer lot, different product grouping, reduction in variability, or a change in how work is released. That is also where modelling can help.</p>
+    <p>Trooba Flow uses queueing theory, QRM principles, MCT, and factory-flow modelling to estimate how changes to resources, routings, shifts, or lot policies may affect queues and manufacturing lead time before those changes are made on the shop floor. The result of such an analysis is a modelled projection, not a measured outcome. Actual performance still needs to be verified after implementation.</p>
+
+    <h2 id="tarinika">A measured example of changing the flow instead of the machines</h2>
+    <div class="blog-result">
+      <div class="txt"><p class="small">MEASURED RESULT — TARINIKA</p><p class="main">Tarinika, a jewellery manufacturer, reduced manufacturing lead time using the same factory and the same machines. The constraint was lot sizing and queue dynamics, not machine speed.</p></div>
+      <div class="num">28 &rarr; 7<small>days &middot; &gt;75% reduction</small></div>
+    </div>
+    <p>That distinction matters. If the problem had been interpreted purely as insufficient machine capacity, the logical response might have been additional equipment. Instead, the improvement came from changing how work flowed through the existing system.</p>
+    <p>This is the central lesson of the Response Time Spiral. Long lead times should not automatically trigger more buffers, more WIP, larger batches, or higher utilisation. First understand why work is waiting.</p>
+
+    <div class="blog-midcta"><p>See what is driving lead time in your factory.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>
+
+    <h2>In short</h2>
+    <p>The QRM Response Time Spiral explains why manufacturing lead time can become self-reinforcing. Long lead times encourage manufacturers to release work earlier, increase WIP, batch more aggressively, and expedite more frequently. Those behaviours increase congestion and variability. Queues grow, which makes lead times longer and less predictable.</p>
+    <p>Breaking the spiral requires shifting attention from local efficiency to factory flow. Measure waiting. Understand utilisation. Study variability. Examine lot sizes. Identify the resources that actually control response time. Then test changes against the system as a whole.</p>
+    <p>If you want to identify what is driving lead time in your factory, you can request a Flow Analysis at <a href="/flow-analysis" class="link">trooba.com/flow-analysis</a>.</p>
+
+    <h2 id="faqs">FAQs</h2>
+    <details class="blog-faq" open><summary>What is the QRM Response Time Spiral?</summary><p>The QRM Response Time Spiral describes a reinforcing cycle where long manufacturing lead times encourage behaviours such as releasing work earlier, increasing buffers, batching, and expediting. These actions can increase WIP, variability, and queueing, which makes lead times even longer. Quick Response Manufacturing uses the concept to show why reducing response time often requires changing system policies, not simply working faster.</p></details>
+    <details class="blog-faq"><summary>Why does releasing production orders earlier increase lead time?</summary><p>Early release puts more work into the manufacturing system before capacity is ready to process it. The additional WIP competes for shared machines and labour, creating queues between operations. Releasing earlier may give an individual order more calendar time, but if it becomes standard practice across many orders, congestion can increase and overall manufacturing lead time can become longer.</p></details>
+    <details class="blog-faq"><summary>Does high machine utilisation always cause long lead times?</summary><p>No. High utilisation is not automatically bad, and some expensive or constrained resources need to operate at high utilisation. The risk appears when a resource has little spare capacity and faces meaningful variability. In that situation, normal fluctuations in arrivals or processing times can create disproportionately larger queues, increasing waiting time even if the machine itself is operating efficiently.</p></details>
+    <details class="blog-faq"><summary>How is WIP connected to manufacturing lead time?</summary><p>Little's Law connects WIP, throughput, and lead time: WIP = Throughput &times; Lead Time. At a stable throughput rate, longer lead times are associated with more work inside the system. This does not mean every reduction in WIP automatically fixes lead time, but it provides a useful way to understand why excessive early releases and congested queues often appear together.</p></details>
+    <details class="blog-faq"><summary>How can a manufacturer tell whether capacity or queueing is causing long lead times?</summary><p>Start by separating processing time from waiting time and examining utilisation, queue time, variability, and WIP by resource. A genuine capacity constraint will usually remain heavily loaded even after flow policies are examined. In other cases, long lead time may be driven primarily by variability, batching, routing interactions, or work-release policies rather than insufficient equipment.</p></details>
+
+<div class="blog-endcta"><p>See what is driving lead time in your factory.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>

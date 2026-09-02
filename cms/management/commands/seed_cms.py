@@ -182,24 +182,28 @@ class Command(BaseCommand):
                     "author": meta.get("author", "Trooba Team"),
                     "published_at": published,
                     "read_time": meta.get("read_time", ""),
+                    "cover_url": meta.get("cover_url", ""),
+                    "cover_alt": meta.get("cover_alt", ""),
                     "body_html": body_html,
                     "seo": meta.get("seo") or {},
                     "sort_order": meta.get("sort_order", i),
                     "is_published": True,
                 },
             )
-            if created or not post.body_html:
-                post.title = meta["title"]
-                post.dek = meta.get("dek", post.dek)
-                post.category = meta.get("category", post.category)
-                post.author = meta.get("author", post.author)
-                post.published_at = published or post.published_at
-                post.read_time = meta.get("read_time", post.read_time)
-                post.body_html = body_html or post.body_html
-                post.seo = meta.get("seo") or post.seo
-                post.sort_order = meta.get("sort_order", post.sort_order)
-                post.is_published = True
-                post.save()
+            post.title = meta["title"]
+            post.dek = meta.get("dek", post.dek)
+            post.category = meta.get("category", post.category)
+            post.author = meta.get("author", post.author)
+            post.published_at = published or post.published_at
+            post.read_time = meta.get("read_time", post.read_time)
+            post.cover_url = meta.get("cover_url", post.cover_url)
+            post.cover_alt = meta.get("cover_alt", post.cover_alt)
+            if body_html:
+                post.body_html = body_html
+            post.seo = {**(post.seo or {}), **(meta.get("seo") or {})}
+            post.sort_order = meta.get("sort_order", post.sort_order)
+            post.is_published = True
+            post.save()
             self.stdout.write(f"  blog {post.slug} ({len(post.body_html)} chars)")
 
         self.stdout.write(self.style.SUCCESS("CMS seed complete"))

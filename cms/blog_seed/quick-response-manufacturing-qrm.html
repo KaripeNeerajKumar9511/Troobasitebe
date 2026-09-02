@@ -1,0 +1,183 @@
+<p class="lead">A factory can be busy all day and still be slow. Machines may be running, operators occupied, orders moving from department to department &mdash; and customers still wait days or weeks for work that contains only a few hours of processing. That gap is what Quick Response Manufacturing (QRM) is designed to attack.</p>
+    <p>Quick Response Manufacturing is a companywide strategy focused on reducing lead time. Rather than optimising every machine, department, or labour hour for maximum efficiency, QRM asks a more useful question: what is causing an order to spend so much calendar time inside the business?</p>
+    <p>This matters especially in high-mix, low-volume and make-to-order manufacturing, where products follow different routings, demand varies, priorities change, and multiple jobs compete for the same resources. QRM shifts attention away from local efficiency alone and toward the total time an order spends waiting, queueing, moving, and being processed. The biggest lead-time problem may not be a slow machine. It may be excess WIP, large batches, overloaded resources, functional handoffs, or the way work is released into the factory.</p>
+    <div class="blog-callout">Definition: Quick Response Manufacturing is a time-based strategy for reducing lead times across manufacturing and supporting business processes. It was developed by Rajan Suri and is particularly applicable to high-mix, low-volume and custom manufacturing environments.</div>
+    <p>The central idea sounds simple: reduce time. Putting it into practice can require manufacturers to rethink deeply embedded assumptions about utilisation, batch sizes, capacity, organisational structure, and performance measurement.</p>
+
+    <h2 id="time">Why QRM focuses on time</h2>
+    <p>Consider a component that requires four manufacturing operations. The actual processing time might be:</p>
+    <div class="blog-ops">
+      <div class="blog-op"><p class="name">Cutting</p><p class="val">30 minutes</p></div>
+      <div class="blog-op"><p class="name">Machining</p><p class="val">60 minutes</p></div>
+      <div class="blog-op"><p class="name">Inspection</p><p class="val">20 minutes</p></div>
+      <div class="blog-op"><p class="name">Assembly</p><p class="val">40 minutes</p></div>
+    </div>
+    <p>Total processing time: 2.5 hours. Yet the manufacturing lead time could be 10 days. Where did the remaining time go? Usually, the product was not being processed. It was waiting &mdash; for a machine, for labour, for the rest of a batch, for inspection, for material, or because another urgent order jumped ahead.</p>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Illustrative order &middot; 2.5 hours of processing inside 10 calendar days</p>
+      <div class="blog-split">
+        <div class="blog-split__touch" style="width:3%;">3%</div>
+        <div class="blog-split__wait" style="width:97%;">97% waiting</div>
+      </div>
+    </div>
+    <p>Manufacturing lead time is often driven less by how fast an individual operation runs and more by how work flows through the entire system. A machine may save five minutes of processing time while an order waits two days in front of it. QRM shifts management attention from local efficiency toward elapsed time. See also <a href="/solutions">how Trooba approaches lead-time reduction</a>.</p>
+
+    <h2 id="four-concepts">The four core concepts of Quick Response Manufacturing</h2>
+    <p>Rajan Suri's QRM framework is commonly presented through four core concepts: the Power of Time, Organization Structure, System Dynamics, and Enterprise-Wide Application.</p>
+
+    <h3>1. The Power of Time</h3>
+    <p>Traditional manufacturing metrics frequently emphasise cost, labour efficiency, machine utilisation, and unit productivity. Those measures are useful, but optimising them independently can create unintended consequences.</p>
+    <p>Suppose a department runs larger batches because setup time is expensive. The apparent cost per piece may fall. But larger batches can also increase queue lengths, work in process (WIP), waiting for the complete batch, scheduling complexity, and response time for other orders.</p>
+    <p>QRM asks managers to consider the cost of time itself. A decision that improves local efficiency but adds three days to manufacturing lead time may not improve the system.</p>
+
+    <h3>2. Organization Structure</h3>
+    <p>Many factories are organised functionally. All lathes together. All milling machines together. Inspection centralised. Planning separate. Engineering elsewhere. Products then travel between departments, and every handoff creates another opportunity to wait.</p>
+    <p>QRM therefore uses QRM cells where appropriate. A cell groups people and resources around a focused family of products or demand rather than around individual machine types. The objective is not simply moving machines closer together. It is reducing the number of queues, handoffs, approvals, and scheduling decisions that an order encounters. Teams are typically broader in responsibility, and workers may be cross-trained so the cell can respond more flexibly to changing demand.</p>
+
+    <h3>3. System Dynamics</h3>
+    <p>This is where QRM becomes counterintuitive. A common manufacturing assumption is: if an expensive machine is available, keep it busy. That sounds economically sensible. But manufacturing systems contain variability &mdash; uneven arrivals, changing process times, failures, unavailable operators, mix changes.</p>
+    <p>When utilisation becomes very high, even modest variability can create disproportionately long queues. Queueing theory explains why. A simplified relationship often associated with Kingman's formula shows that waiting time is influenced by three things:</p>
+    <div class="blog-formula">Queue time &asymp; variability &times; utilisation effect &times; processing time</div>
+    <p>As utilisation approaches the practical capacity of a resource, the utilisation component rises sharply. Moving a bottleneck from 80% utilisation toward 95% does not simply make the queue 15% worse. Waiting can increase much more dramatically depending on variability.</p>
+    <div class="blog-callout">Some spare capacity can be economically valuable because it protects flow. Maximum utilisation and minimum lead time are different objectives.</div>
+    <p>This does not mean every resource should deliberately sit idle. It means you should not treat idle capacity as failure by default. See <a href="/blog/why-high-utilization-increases-lead-time">why high machine utilisation can increase manufacturing lead time</a>.</p>
+
+    <h3>4. Enterprise-Wide Application</h3>
+    <p>QRM is not limited to machines on the factory floor. Lead time can accumulate before production even begins. An order may wait for quotation, engineering, drawings, purchasing, material approval, planning, or production release. It can wait again after production for inspection, documentation, or shipping.</p>
+    <p>That is why QRM applies the time-based approach across the enterprise rather than treating manufacturing as an isolated department. Suri's original QRM framework explicitly describes it as a companywide approach extending beyond the shop floor.</p>
+
+    <h2 id="mct">What is Manufacturing Critical-Path Time (MCT)?</h2>
+    <p>Quick Response Manufacturing uses Manufacturing Critical-Path Time (MCT) as a key measure of lead time. The QRM Center defines MCT as the typical calendar time from when a customer creates an order, through the critical path, until the first piece of that order is delivered.</p>
+    <p>The word calendar is important. If an order waits over the weekend, those days still count. If material waits three days before machining, that time counts. If production takes six hours but the order spends twelve days moving through the system, MCT reflects the twelve-day system rather than celebrating the six hours of processing. MCT therefore makes waiting visible.</p>
+    <p>A simplified MCT might look like this:</p>
+    <table class="tbl blog-table">
+      <tr><th>Stage</th><th>Processing time</th><th>Waiting / other time</th></tr>
+      <tr><td>Order &amp; engineering</td><td>4 hours</td><td>2 days</td></tr>
+      <tr><td>Machining</td><td>3 hours</td><td>3 days</td></tr>
+      <tr><td>Outside processing</td><td>2 hours</td><td>4 days</td></tr>
+      <tr><td>Assembly &amp; inspection</td><td>5 hours</td><td>2 days</td></tr>
+      <tr><td class="blog-hi">Total</td><td class="blog-hi">14 hours</td><td class="blog-hi">11 days</td></tr>
+    </table>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Simplified MCT map &middot; 11 days waiting vs 14 hours of processing</p>
+      <div class="blog-mct">
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:18%;">Eng 2d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:27%;">Machining 3d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:36%;">Outside 4d</div>
+        <div class="blog-mct__seg blog-mct__seg--wait" style="width:18%;">Assembly 2d</div>
+        <div class="blog-mct__seg blog-mct__seg--touch" style="width:1%;"></div>
+      </div>
+      <div class="blog-legend">
+        <span><span class="swatch" style="background:var(--text-accent);"></span>Touch time &mdash; 14 hours</span>
+        <span><span class="swatch" style="background:var(--chart-neutral-3);"></span>Waiting / other time &mdash; 11 days</span>
+      </div>
+    </div>
+    <p class="blog-note">The exact numbers here are illustrative. The pattern is common in complex manufacturing systems: the opportunities for lead-time reduction often sit in the white space between operations, not just inside the operations themselves.</p>
+    <p>Read the full treatment in <a href="/blog/manufacturing-critical-path-time-mct">Manufacturing Critical-Path Time (MCT): a better way to measure lead time</a>.</p>
+
+    <h2 id="littles-law">WIP, lead time, and Little's Law</h2>
+    <p>One reason QRM pays attention to work in process is the relationship described by Little's Law:</p>
+    <div class="blog-formula">WIP = Throughput &times; Lead Time</div>
+    <div class="blog-icons">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>WIP</h5><p>The average amount of unfinished work in the system.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Throughput</h5><p>The average rate at which the system completes work.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>Lead time</h5><p>The average time work spends inside the system.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>The rearrangement</h5><p>Lead Time = WIP &divide; Throughput. You cannot treat WIP and lead time independently.</p></div>
+    </div>
+    <p>Suppose a factory completes an average of 10 orders per day and has 120 orders in process. Using Little's Law: 120 &divide; 10 = <strong>12 days</strong>. Now suppose the factory redesigns flow and reduces average WIP from 120 orders to 70 while maintaining the same throughput. Lead time becomes 70 &divide; 10 = <strong>7 days</strong>.</p>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Same throughput, less WIP, shorter lead time &middot; 10 orders per day</p>
+      <div class="blog-compare">
+        <div class="blog-compare__row">
+          <div class="blog-compare__meta"><span>Before</span><strong>120 WIP &middot; 12 days</strong></div>
+          <div class="blog-compare__track"><div class="blog-compare__fill" style="width:100%"></div></div>
+        </div>
+        <div class="blog-compare__row">
+          <div class="blog-compare__meta"><span>After</span><strong>70 WIP &middot; 7 days</strong></div>
+          <div class="blog-compare__track"><div class="blog-compare__fill blog-compare__fill--accent" style="width:58%"></div></div>
+        </div>
+      </div>
+    </div>
+    <p>The factory did not need faster machines to produce that mathematical change. It reduced the amount of work competing for resources at the same time. Of course, simply restricting WIP without understanding the system can create other problems. The purpose of the example is to show why WIP and lead time cannot be treated independently. Queues, release policies, lot sizes, capacity, and variability all interact.</p>
+
+    <h2 id="utilisation">Why high utilisation can increase lead time</h2>
+    <p>Imagine a highway operating at 50% of its practical capacity. Another vehicle can enter with little effect. At much higher traffic levels, one small disturbance can create a queue. Factories behave similarly.</p>
+    <p>When a resource has significant spare capacity, variable arrivals can often be absorbed. As utilisation rises, that buffer disappears. One late operation affects the next order. The queue grows. Waiting increases. Planners begin expediting. Priorities change. Other jobs are delayed. The problem becomes self-reinforcing.</p>
+    <p>This is why QRM challenges the idea that every resource should operate as close to 100% utilisation as possible. The goal is not idle capacity for its own sake. The goal is fast, reliable flow. A plant can therefore reach a surprising conclusion: adding a little protective capacity at the right resource may reduce total system cost if it materially reduces queues, WIP, expediting, and delivery problems.</p>
+
+    <h2 id="lot-sizes">QRM and lot sizes</h2>
+    <p>Lot size creates another important trade-off. Larger lots can reduce the number of setups. But they also mean work waits longer before a batch is formed, takes longer to process as a batch, and can block following products from accessing the resource.</p>
+    <p>Transfer lots matter too. Suppose 100 pieces must go through machining and assembly. Under one approach, assembly waits until all 100 pieces have been machined. Under another, the first 20 pieces move to assembly while machining continues on the remaining 80. Nothing about the individual machining cycle became faster. But the product started moving through the next stage earlier.</p>
+    <div class="blog-diagram">
+      <p class="blog-diagram__label">Whole batch of 100 vs transfer lots of 20</p>
+      <div class="blog-ops">
+        <div class="blog-op">
+          <p class="name">Whole batch</p>
+          <p class="val">Assembly waits until all 100 pieces finish machining</p>
+        </div>
+        <div class="blog-op" style="background:var(--state-selected);">
+          <p class="name">Transfer lots of 20</p>
+          <p class="val">Assembly starts after the first 20 pieces, while machining continues</p>
+        </div>
+      </div>
+    </div>
+    <p>QRM therefore encourages manufacturers to evaluate lot-size decisions based on their effect on total lead time, not only setup economics. See <a href="/blog/manufacturing-lead-time-waiting-not-processing">why most manufacturing lead time is waiting, not processing</a>.</p>
+
+    <h2 id="vs-lean">Quick Response Manufacturing vs. Lean Manufacturing</h2>
+    <p>QRM and Lean are not opposites. They overlap in their desire to eliminate waste and improve flow. Their emphasis differs, particularly in environments with high product variety and variable demand.</p>
+    <table class="tbl blog-table">
+      <tr><th>Area</th><th>Lean Manufacturing</th><th>Quick Response Manufacturing</th></tr>
+      <tr><td>Primary emphasis</td><td>Waste reduction and flow</td><td>Lead-time reduction</td></tr>
+      <tr><td>Classic environment</td><td>Repetitive, relatively predictable flow</td><td>High-mix, low-volume, custom or make-to-order</td></tr>
+      <tr><td>Capacity thinking</td><td>Eliminate waste and balance flow</td><td>Maintain sufficient capacity to absorb variability</td></tr>
+      <tr><td>Organisation</td><td>Value streams, cells, standard work</td><td>QRM cells focused on lead-time reduction</td></tr>
+      <tr><td>Material control</td><td>Often pull / Kanban</td><td>May use POLCA in high-variety environments</td></tr>
+      <tr><td>Core time metric</td><td>Lead / throughput measures vary</td><td>Manufacturing Critical-Path Time</td></tr>
+    </table>
+    <p>POLCA, or Paired-cell Overlapping Loops of Cards with Authorization, was developed for material control in high-variety and custom manufacturing environments where conventional Kanban may be difficult to apply.</p>
+    <p>The practical question is not whether a factory should &ldquo;choose Lean or QRM.&rdquo; A manufacturer can use Lean techniques where repetitive flow exists while applying QRM principles where high variety, variability, and queueing dominate.</p>
+
+    <h2 id="start">How to start applying QRM</h2>
+    <p>A manufacturer does not need to redesign the entire factory on day one. Start with one product family or market segment where lead time matters commercially.</p>
+    <div class="blog-icons blog-icons--3">
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>1. Measure elapsed time</h5><p>From demand to delivery. Separate processing time from waiting time.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>2. Map the routing</h5><p>Identify where work accumulates, not just where people are busy.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>3. Pair utilisation with variability</h5><p>A high-load resource with variable demand deserves more attention than a high-load resource with stable flow.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>4. Examine the queue decisions</h5><p>Batches, early release, shared constraints, cells, protective capacity, transfer lots.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>5. Test at system level</h5><p>Improving one machine does not necessarily improve manufacturing lead time.</p></div>
+      <div class="blog-icon"><span class="blog-icon__mark" aria-hidden="true"></span><h5>6. Watch the spiral</h5><p>Long lead times encourage more WIP and expediting. See the <a href="/blog/qrm-response-time-spiral">QRM Response Time Spiral</a>.</p></div>
+    </div>
+    <p>Look specifically at whether batches are larger than they need to be, whether products are released too early, whether several product families compete for the same constrained resource, whether a focused cell could remove handoffs, whether a small amount of additional capacity would dramatically reduce waiting, and whether transfer lots could move downstream earlier.</p>
+
+    <h2 id="modelling">Where factory flow modelling fits</h2>
+    <p>QRM gives manufacturers a strong management framework for thinking about time. Queueing and factory-flow modelling can add another layer: estimating the likely system effect of a proposed change before physically implementing it.</p>
+    <p>Trooba Flow is Factory Flow Intelligence software built around this problem. It models products, routings, resources, demand, and variability as an open queueing network and estimates bottlenecks, queue time, WIP, utilisation, and manufacturing lead time. Users can then compare what-if scenarios such as capacity, routing, shift, or transfer-lot changes before making changes on the shop floor.</p>
+    <p>That distinction between observed and projected results matters. A model can help determine which improvement is worth testing. The actual factory determines whether the expected improvement is achieved.</p>
+
+    <h2 id="tarinika">A measured example</h2>
+    <div class="blog-result">
+      <div class="txt"><p class="small">MEASURED RESULT — TARINIKA</p><p class="main">Tarinika, a jewellery manufacturer, reduced manufacturing lead time using the same factory and the same machines. The constraint was lot sizing and queue dynamics, not machine speed.</p></div>
+      <div class="num">28 &rarr; 7<small>days &middot; &gt;75% reduction</small></div>
+    </div>
+    <p>The lesson is not that every manufacturer can achieve the same percentage reduction. The lesson is that substantial lead-time problems can sometimes originate in how work is organised and queued rather than in the speed of the equipment itself.</p>
+
+    <div class="blog-midcta"><p>See what is actually driving lead time in your factory.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>
+
+    <h2 id="question">QRM changes the question</h2>
+    <p>Traditional improvement often begins with: how can we make this operation more efficient? QRM begins with: why does this order take so long to move through the company? Those questions can produce very different investment decisions.</p>
+    <p>One may lead toward automation, faster machines, or higher utilisation. The other may reveal that the real problem is excess WIP, large lots, shared resources, functional handoffs, variability, or queues. That is the value of Quick Response Manufacturing. It forces the organisation to optimise time through the system, rather than assuming that maximising the efficiency of every individual resource will automatically optimise the factory.</p>
+
+    <h2>Key takeaways</h2>
+    <p>Quick Response Manufacturing is fundamentally a lead-time reduction strategy. It is particularly useful when manufacturing is complex: many products, variable demand, changing routings, small quantities, and shared resources.</p>
+    <p>Its most important insight is also its most uncomfortable one. The decisions that make individual departments appear efficient can make the overall factory slower. Higher utilisation can create queues. Larger batches can increase waiting. Excess WIP can extend lead time. Functional specialisation can create handoffs. QRM makes time visible so manufacturers can manage those interactions deliberately.</p>
+    <p>If you want to identify what is actually driving lead time in your factory, you can request a Flow Analysis at <a href="/flow-analysis" class="link">trooba.com/flow-analysis</a>.</p>
+
+    <h2 id="faqs">FAQs</h2>
+    <details class="blog-faq" open><summary>What is Quick Response Manufacturing in simple terms?</summary><p>Quick Response Manufacturing is a management strategy focused on reducing the total time required for work to move through a manufacturing business. Instead of concentrating only on machine efficiency or production cost, QRM examines waiting, queues, WIP, batch sizes, capacity, and organisational structure to determine what is extending lead time.</p></details>
+    <details class="blog-faq"><summary>Is QRM the same as Lean manufacturing?</summary><p>No. QRM and Lean share several ideas around flow and waste reduction, but their emphasis differs. QRM places lead-time reduction at the centre of decision-making and is particularly suited to high-mix, low-volume and custom manufacturing. Lean techniques can still be used within a QRM environment, especially where processes are repetitive and predictable.</p></details>
+    <details class="blog-faq"><summary>Why does QRM recommend spare capacity?</summary><p>QRM does not recommend unused capacity everywhere. It recognises that high utilisation combined with variability can create disproportionately long queues. Maintaining some capacity cushion at strategically important resources can allow the system to absorb changes in demand or processing time and may reduce waiting, WIP, and manufacturing lead time.</p></details>
+    <details class="blog-faq"><summary>What is Manufacturing Critical-Path Time?</summary><p>Manufacturing Critical-Path Time, or MCT, is a QRM metric representing the typical calendar time from when a customer creates an order, through its critical path, until the first piece is delivered. Unlike metrics that focus mainly on processing time, MCT deliberately exposes waiting and other elapsed time across the order-fulfilment process.</p></details>
+    <details class="blog-faq"><summary>What types of manufacturers benefit most from QRM?</summary><p>QRM is especially relevant to high-mix, low-volume, make-to-order and custom manufacturing environments. These factories tend to experience variable routings, uneven demand, changing lot sizes, and competition for shared resources. In such systems, queueing and waiting can have a much larger influence on lead time than individual machine cycle times.</p></details>
+    <details class="blog-faq"><summary>Do manufacturers need new machines to implement QRM?</summary><p>Not necessarily. QRM first asks whether existing capacity is being organised and used in a way that supports fast flow. Lead-time improvements may come from changing lot sizes, reducing WIP, reorganising resources into cells, adjusting routing, or adding capacity selectively. New equipment may be justified, but only after understanding the system constraint.</p></details>
+
+<div class="blog-endcta"><p>See what is actually driving lead time in your factory.</p><a href="/flow-analysis" class="btn btn--primary">Request a Flow Analysis</a></div>
