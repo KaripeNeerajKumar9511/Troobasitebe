@@ -99,7 +99,7 @@ CONTACT_FIELDS = {
     "submittingLabel": "Submitting...",
     "successMessage": "We'll personally review your request and follow up with the essentials for your product family.",
     "loginHtml": "Already have an account?",
-    "loginHref": "https://gotrooba.ai",
+    "loginHref": "https://app.trooba.com",
     "loginLabel": "Login.",
     "privacyNote": "We use this to reply to you and for nothing else. See the privacy notice.",
 }
