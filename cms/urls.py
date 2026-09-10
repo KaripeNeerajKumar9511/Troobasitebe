@@ -21,6 +21,11 @@ router.register(
     views.RequestSubmissionViewSet,
     basename="admin-requests",
 )
+router.register(
+    r"admin/newsletters/subscribers",
+    views.NewsletterSubscriberViewSet,
+    basename="admin-newsletters",
+)
 
 urlpatterns = [
     path("admin/login/", views.login_view),
@@ -34,5 +39,7 @@ urlpatterns = [
     path("public/blogs/<slug:slug>/", views.public_blog),
     path("public/leads/contact/", views.public_contact_lead),
     path("public/leads/request/", views.public_request_lead),
+    path("public/newsletter/subscribe/", views.public_newsletter_subscribe),
+    path("public/newsletter/unsubscribe/", views.public_newsletter_unsubscribe),
     path("", include(router.urls)),
 ]

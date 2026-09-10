@@ -5,6 +5,7 @@ from .models import (
     CaseStudy,
     ContactSubmission,
     MediaAsset,
+    NewsletterSubscriber,
     Page,
     RequestSubmission,
     SiteSettings,
@@ -190,3 +191,26 @@ class RequestSubmissionSerializer(serializers.ModelSerializer):
             "created_at",
         )
         read_only_fields = ("id", "created_at")
+
+
+class NewsletterSubscriberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsletterSubscriber
+        fields = (
+            "id",
+            "name",
+            "email",
+            "status",
+            "subscribed_at",
+            "unsubscribed_at",
+            "message_id",
+            "created_at",
+            "updated_at",
+        )
+        read_only_fields = (
+            "id",
+            "subscribed_at",
+            "unsubscribed_at",
+            "created_at",
+            "updated_at",
+        )

@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.db.models import Q
+from django.utils import timezone
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
@@ -11,6 +13,7 @@ from .models import (
     CaseStudy,
     ContactSubmission,
     MediaAsset,
+    NewsletterSubscriber,
     Page,
     RequestSubmission,
     SiteSettings,
@@ -23,6 +26,7 @@ from .serializers import (
     CaseStudySerializer,
     ContactSubmissionSerializer,
     MediaAssetSerializer,
+    NewsletterSubscriberSerializer,
     PageListSerializer,
     PageSerializer,
     RequestSubmissionSerializer,
@@ -192,6 +196,58 @@ def public_request_lead(request):
     return Response(RequestSubmissionSerializer(obj).data, status=201)
 
 
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def public_newsletter_subscribe(request):
+    name = str(request.data.get("name", "")).strip()
+    email = str(request.data.get("email", "")).strip().lower()
+    message_id = str(request.data.get("message_id", "")).strip()
+    if not name or not email:
+        return Response({"error": "name and email are required"}, status=400)
+    existing = NewsletterSubscriber.objects.filter(email__iexact=email).first()
+    if existing:
+        already = existing.status == NewsletterSubscriber.STATUS_SUBSCRIBED
+        existing.name = name or existing.name
+        existing.status = NewsletterSubscriber.STATUS_SUBSCRIBED
+        existing.unsubscribed_at = None
+        if not already:
+            existing.subscribed_at = timezone.now()
+        if message_id:
+            existing.message_id = message_id
+        existing.save()
+        data = NewsletterSubscriberSerializer(existing).data
+        data["already_subscribed"] = already
+        return Response(data, status=200)
+    obj = NewsletterSubscriber.objects.create(
+        name=name,
+        email=email,
+        status=NewsletterSubscriber.STATUS_SUBSCRIBED,
+        message_id=message_id,
+    )
+    data = NewsletterSubscriberSerializer(obj).data
+    data["already_subscribed"] = False
+    return Response(data, status=201)
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def public_newsletter_unsubscribe(request):
+    email = str(request.data.get("email", "")).strip().lower()
+    if not email:
+        return Response({"error": "email is required"}, status=400)
+    obj = NewsletterSubscriber.objects.filter(email__iexact=email).first()
+    if obj is None:
+        return Response({"error": "Subscriber not found"}, status=404)
+    already = obj.status == NewsletterSubscriber.STATUS_UNSUBSCRIBED
+    if not already:
+        obj.status = NewsletterSubscriber.STATUS_UNSUBSCRIBED
+        obj.unsubscribed_at = timezone.now()
+        obj.save()
+    data = NewsletterSubscriberSerializer(obj).data
+    data["already_unsubscribed"] = already
+    return Response(data)
+
+
 class SiteSettingsView(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = SiteSettingsSerializer
@@ -278,4 +334,23 @@ class RequestSubmissionViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(name__icontains=q) | qs.filter(email__icontains=q) | qs.filter(
                 company__icontains=q
             )
+        return qs.distinct()
+
+
+class NewsletterSubscriberViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = NewsletterSubscriber.objects.all()
+    serializer_class = NewsletterSubscriberSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        status = self.request.query_params.get("status")
+        if status in (
+            NewsletterSubscriber.STATUS_SUBSCRIBED,
+            NewsletterSubscriber.STATUS_UNSUBSCRIBED,
+        ):
+            qs = qs.filter(status=status)
+        q = self.request.query_params.get("q")
+        if q:
+            qs = qs.filter(Q(name__icontains=q) | Q(email__icontains=q))
         return qs.distinct()

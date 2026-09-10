@@ -5,6 +5,7 @@ from .models import (
     CaseStudy,
     ContactSubmission,
     MediaAsset,
+    NewsletterSubscriber,
     Page,
     RequestSubmission,
     SiteSettings,
@@ -21,3 +22,4 @@ admin.site.register(BlogPost)
 admin.site.register(SolutionCard)
 admin.site.register(ContactSubmission)
 admin.site.register(RequestSubmission)
+admin.site.register(NewsletterSubscriber)
