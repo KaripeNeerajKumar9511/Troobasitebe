@@ -207,6 +207,7 @@ def public_newsletter_subscribe(request):
     existing = NewsletterSubscriber.objects.filter(email__iexact=email).first()
     if existing:
         already = existing.status == NewsletterSubscriber.STATUS_SUBSCRIBED
+        welcome_back = not already
         existing.name = name or existing.name
         existing.status = NewsletterSubscriber.STATUS_SUBSCRIBED
         existing.unsubscribed_at = None
@@ -217,6 +218,7 @@ def public_newsletter_subscribe(request):
         existing.save()
         data = NewsletterSubscriberSerializer(existing).data
         data["already_subscribed"] = already
+        data["welcome_back"] = welcome_back
         return Response(data, status=200)
     obj = NewsletterSubscriber.objects.create(
         name=name,
@@ -226,6 +228,7 @@ def public_newsletter_subscribe(request):
     )
     data = NewsletterSubscriberSerializer(obj).data
     data["already_subscribed"] = False
+    data["welcome_back"] = False
     return Response(data, status=201)
 
 
